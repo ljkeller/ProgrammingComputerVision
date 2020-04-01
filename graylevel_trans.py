@@ -1,11 +1,23 @@
 from PIL import Image
 from matplotlib import pyplot as plt
+import imtools
 import numpy as np
 
 # SET ALL PLOTS TO GRAY
 plt.gray()
 
 im = np.array(Image.open('empire.jpg').convert('L'))
+
+im_eq, cdf = imtools.histeq(im)
+
+plt.figure(6)
+plt.imshow(im_eq)
+
+plt.figure(7)
+plt.hist(im_eq.flatten(), 128)
+
+plt.figure(8)
+plt.hist(im.copy().flatten(), 128)
 
 #invert image
 im2 = 255 - im
@@ -20,7 +32,7 @@ print(im)
 
 #Displaying multiple plots
 plt.figure(1)
-plt.imshow(im, cmap='gray')
+plt.imshow(im)
 plt.figure(2)
 plt.imshow(im2)
 plt.figure(3)
